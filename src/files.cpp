@@ -22,24 +22,15 @@ std::vector<std::string> getWords(std::string path)
 
     file.close();
 
+    // verifie the word list
+    for (std::string word : words)
+    {
+        if (word.size() != 5)
+        {
+            std::cerr << "Le mot " << word << " n'a pas 5 lettres." << std::endl;
+            exit(1);
+        }
+    }
+
     return words;
-}
-
-int addWord(std::string word, std::string path) {
-    std::fstream file(path, std::ios::app);
-    if (!file.is_open()) {
-        std::cerr << "Erreur lors de l'ouverture du fichier : " << path << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    file << std::endl << word;
-
-    if (!file) {
-        std::cerr << "Erreur lors de l'écriture du fichier : " << path << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    file.close();
-
-    return EXIT_SUCCESS;
 }
