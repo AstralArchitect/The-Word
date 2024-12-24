@@ -4,22 +4,19 @@
 #include <ctime>
 #include <cstring>
 
-std::string checkWord(std::string trial, std::string wor);
+std::string checkWord(std::string const& trial, std::string const&  word);
 
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-    std::vector<std::string> words = getWords((std::string)"res/dico.txt");
+    std::vector<std::string> words = getWords();
     std::string word = words[rand() % words.size()];
     std::string trial;
     const unsigned short maxTrial = 5;
     unsigned short actualTrial = 0;
 
-    // process cheat mode
-    bool cheatMod = false;
     if (argc == 2 && strcmp("cheat", argv[1]) == 0)
     {
-        cheatMod = true;
         std::cout << word << std::endl;
     }
     
@@ -37,6 +34,11 @@ int main(int argc, char *argv[])
         if (trial == word)
         {
             std::cout << "Bravo, vous avez trouvé le mot : " << word << std::endl;
+            break;
+        }
+        else if(trial == ".exit")
+        {
+            std::cout << "Abandon" << std::endl << "Le mot était " << word << std::endl;
             break;
         }
         else if(actualTrial < maxTrial - 1)
@@ -62,9 +64,8 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-std::string checkWord(std::string trial, std::string word) {
+std::string checkWord(std::string const& trial, std::string const& word) {
     std::string result(5, '-');
-    
 
     for (unsigned long i = 0; i < std::min(trial.size(), word.size()); i++) {
         if (trial[i] == word[i])
