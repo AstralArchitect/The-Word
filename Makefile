@@ -9,4 +9,4 @@ setup:
 runC: compile
 	builddir/main cheat
 clean:
-	rm -rf builddir/ subprojects/ziplib/
+	rm -rf builddir/ subprojects/bzip2/ subprojects/plzmaSDK/

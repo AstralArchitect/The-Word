@@ -1,4 +1,4 @@
 [wrap-git]
 directory = ziplib
-url = https://github.com/DreamyCecil/ZipLib.git
+url = https://github.com/AstralArchitect/ZipLib.git
 revision = head

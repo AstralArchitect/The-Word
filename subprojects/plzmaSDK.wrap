@@ -1,0 +1,4 @@
+[wrap-git]
+directory = plzmaSDK
+url = https://github.com/OlehKulykov/PLzmaSDK.git
+revision = head

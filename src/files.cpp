@@ -25,21 +25,27 @@ void sortDico(std::string const& src, std::string const& dest)
 
 std::vector<std::string> getWords()
 {
-    // download, extract and sort the dictionnary
     const std::string url = "http://www.3zsoftware.com/listes/liste_francais.zip";
     const std::string brutDicoPath = "res/tmp_dico.txt";
     const std::string dicoPath = "res/dico.txt";
-    std::string zipPath = downloadFile(url);
-    ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
-    sortDico(brutDicoPath, dicoPath);
-
     // load the dictionnary into a std::vector
     std::vector<std::string> words;
 
     std::ifstream file(dicoPath);
     if (!file.is_open()) {
-        std::cerr << "Erreur lors de l'ouverture du fichier : " << dicoPath << std::endl;
-        return words;
+        // download, extract and sort the dictionnary. Then clean temporary files
+        std::string zipPath = downloadFile(url);
+        ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
+        sortDico(brutDicoPath, dicoPath);
+        // remove temporary files
+        std::remove(brutDicoPath.c_str());
+        std::remove(zipPath.c_str());
+        // retest the opening
+        file.open(dicoPath);
+        if (!file.is_open())
+        {
+            std::cerr << "Impossible d'ouvrir le fichier " << dicoPath << std::endl;
+        }
     }
 
     std::string word;

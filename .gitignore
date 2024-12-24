@@ -1,3 +1,4 @@
 .vscode/
 subprojects/bzip2/
+subprojects/plzmaSDK/
 subprojects/ziplib/

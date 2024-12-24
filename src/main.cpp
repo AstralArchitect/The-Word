@@ -9,7 +9,7 @@ std::string checkWord(std::string const& trial, std::string const&  word);
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-    std::vector<std::string> words = getWords((std::string)"res/dico.txt");
+    std::vector<std::string> words = getWords();
     std::string word = words[rand() % words.size()];
     std::string trial;
     const unsigned short maxTrial = 5;
