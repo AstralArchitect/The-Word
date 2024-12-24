@@ -11,7 +11,7 @@
 std::string downloadFile(std::string const& url)
 {
     std::string path = "res/archive.zip";
-    std::string command = "curl -o " + path + " " + url;
+    std::string command = "curl -o " + path + " " + url + " --silent";
     system(command.c_str());
     return path;
 }
@@ -34,6 +34,7 @@ std::vector<std::string> getWords()
     std::ifstream file(dicoPath);
     if (!file.is_open()) {
         // download, extract and sort the dictionnary
+        std::cout << "Téléchargement du dictionnaire..." << std::endl;
         std::string zipPath = downloadFile(url);
         ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
         sortDico(brutDicoPath, dicoPath);
@@ -46,6 +47,7 @@ std::vector<std::string> getWords()
         {
             std::cerr << "Impossible d'ouvrir le fichier " << dicoPath << std::endl;
         }
+        std::cout << "Dictionnaire téléchargé" << std::endl;
     }
 
     std::string word;
