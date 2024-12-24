@@ -1,4 +1,5 @@
 [wrap-git]
 directory = bzip2
 url = https://gitlab.com/bzip2/bzip2
+hash = 5f6e1a2fe20658d8ee33da68945e39f847639d899278a7fb0a98e86c2f3ec29e
 revision = head
