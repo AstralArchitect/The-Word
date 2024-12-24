@@ -8,3 +8,5 @@ setup:
 	meson setup builddir/
 runC: compile
 	builddir/main cheat
+clean:
+	rm -rf builddir/ subprojects/ziplib/

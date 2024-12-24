@@ -1,6 +1,6 @@
 {
     "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
-    "C_Cpp.default.compileCommands": "/home/matthieu/Code_Projects/The Word/builddir/compile_commands.json",
+    "C_Cpp.default.compileCommands": "/home/matthieu/Code/The-Word_CLI/builddir/compile_commands.json",
     "files.associations": {
         "array": "cpp",
         "atomic": "cpp",

@@ -5,13 +5,40 @@
 #include <cstdlib>
 #include <cstring>
 
-std::vector<std::string> getWords(std::string path)
+#include <ZipFile.h>
+
+// returns the path of the downloaded file
+std::string downloadFile(std::string const& url)
 {
+    std::string path = "res/archive.zip";
+    std::string command = "curl -o " + path + " " + url;
+    system(command.c_str());
+    return path;
+}
+
+void sortDico(std::string const& src, std::string const& dest)
+{
+    std::string command = "cat " + src + " | LC_ALL=C grep -xE '[a-z]{5}' > " + dest;
+    // Execute the command (assuming system() is used)
+    system(command.c_str());
+}
+
+std::vector<std::string> getWords()
+{
+    // download, extract and sort the dictionnary
+    const std::string url = "http://www.3zsoftware.com/listes/liste_francais.zip";
+    const std::string brutDicoPath = "res/tmp_dico.txt";
+    const std::string dicoPath = "res/dico.txt";
+    std::string zipPath = downloadFile(url);
+    ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
+    sortDico(brutDicoPath, dicoPath);
+
+    // load the dictionnary into a std::vector
     std::vector<std::string> words;
 
-    std::ifstream file(path);
+    std::ifstream file(dicoPath);
     if (!file.is_open()) {
-        std::cerr << "Erreur lors de l'ouverture du fichier : " << path << std::endl;
+        std::cerr << "Erreur lors de l'ouverture du fichier : " << dicoPath << std::endl;
         return words;
     }
 

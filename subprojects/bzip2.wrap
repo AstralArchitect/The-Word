@@ -1,0 +1,4 @@
+[wrap-git]
+directory = bzip2
+url = https://gitlab.com/bzip2/bzip2
+revision = head
