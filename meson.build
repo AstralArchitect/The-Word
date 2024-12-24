@@ -1,4 +1,4 @@
-project('The Word', 'cpp', version: 'Stable 1.0.0')
+project('The Word', 'cpp', version: 'Stable 2.0.1')
 
 cmake = import('cmake')
 

@@ -33,7 +33,7 @@ std::vector<std::string> getWords()
 
     std::ifstream file(dicoPath);
     if (!file.is_open()) {
-        // download, extract and sort the dictionnary. Then clean temporary files
+        // download, extract and sort the dictionnary
         std::string zipPath = downloadFile(url);
         ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
         sortDico(brutDicoPath, dicoPath);
