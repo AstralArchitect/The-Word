@@ -5,6 +5,7 @@
 #include <cstring>
 
 std::string checkWord(std::string const& trial, std::string word);
+std::string menuOptions(std::string const& arg, std::string const& word);
 
 int main(int argc, char *argv[])
 {
@@ -25,20 +26,20 @@ int main(int argc, char *argv[])
         std::cout << "Entrez un mot (essais n°" << actualTrial << "): ";
         std::cin >> trial;
 
-        if (trial.size() != 5)
+        // if the word begin with ., it's a command
+        if (trial[0] == '.')
+        {
+            std::cout << menuOptions(trial, word);
+            continue;
+        }
+        else if (trial.size() != 5)
         {
             std::cout << "Entrez un mot de 5 lettes." << std::endl;
             continue;
         }
-
-        if (trial == word)
+        else if (trial == word)
         {
             std::cout << "Bravo, vous avez trouvé le mot : " << word << std::endl;
-            break;
-        }
-        else if(trial == ".exit")
-        {
-            std::cout << "Abandon" << std::endl << "Le mot était " << word << std::endl;
             break;
         }
         else if(actualTrial < maxTrial - 1)
@@ -88,4 +89,32 @@ std::string checkWord(std::string const& trial, std::string word)
 
     }
     return result;
+}
+
+std::string menuOptions(std::string const& arg, std::string const& word)
+{
+    if (arg == ".exit" || arg == ".quit")
+    {
+        std::cout << "Abandon du jeu\nLe mot était : " + word << std::endl;
+        exit(0);
+    }
+    else if (arg == ".help")
+    {
+        return "Commandes disponibles :\n"
+        ".quit / .exit : Quitter le jeu\n"
+        ".help : Afficher ce message\n"
+        ".cheat : Afficher le mot à trouver\n"
+        ".reload_dico : Retélécharger le dictionnaire\n";
+    }
+    else if (arg == ".cheat")
+    {
+        return "Le mot à trouver est : " + word + "\n";
+    }
+    else if (arg == ".reload_dico")
+    {
+        getWords(true);
+        return "Dictionnaire rechargé\n";
+    }
+    
+    return "Commande inconnue\n";
 }

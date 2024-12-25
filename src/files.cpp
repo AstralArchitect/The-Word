@@ -28,8 +28,9 @@ void sortDico(std::string const& src, std::string const& dest)
     system(command2.c_str());
 }
 
-std::vector<std::string> getWords()
+std::vector<std::string> getWords(bool forceReload)
 {
+    if(forceReload) std::remove("res/dico.txt");
     const std::string url = "http://www.3zsoftware.com/listes/liste_francais.zip";
     const std::string baseFileName = "liste_francais.txt";
     const std::string brutDicoPath = "res/tmp_dico.txt";

@@ -1,3 +1,3 @@
 #include <vector>
 
-std::vector<std::string> getWords();
+std::vector<std::string> getWords(bool forceReload = false);
