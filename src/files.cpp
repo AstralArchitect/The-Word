@@ -7,6 +7,8 @@
 
 #include <ZipFile.h>
 
+#define LOWER_CASE_PATH "res/tmp_lowercase.txt"
+
 // returns the path of the downloaded file
 std::string downloadFile(std::string const& url)
 {
@@ -18,14 +20,18 @@ std::string downloadFile(std::string const& url)
 
 void sortDico(std::string const& src, std::string const& dest)
 {
-    std::string command = "cat " + src + " | LC_ALL=C grep -xE '[a-z]{5}' > " + dest;
-    // Execute the command (assuming system() is used)
-    system(command.c_str());
+    const std::string lowerCase = LOWER_CASE_PATH;
+    std::string command1 = "cat " + src + " | LC_ALL=C grep -xE '[A-z]{5}' > " + lowerCase;
+    std::string command2 = "tr '[:upper:]' '[:lower:]' < " + lowerCase + " > " + dest;
+    // Execute the commands
+    system(command1.c_str());
+    system(command2.c_str());
 }
 
 std::vector<std::string> getWords()
 {
     const std::string url = "http://www.3zsoftware.com/listes/liste_francais.zip";
+    const std::string baseFileName = "liste_francais.txt";
     const std::string brutDicoPath = "res/tmp_dico.txt";
     const std::string dicoPath = "res/dico.txt";
     // load the dictionnary into a std::vector
@@ -36,10 +42,11 @@ std::vector<std::string> getWords()
         // download, extract and sort the dictionnary
         std::cout << "Téléchargement du dictionnaire..." << std::endl;
         std::string zipPath = downloadFile(url);
-        ZipFile::ExtractFile(zipPath, "liste_francais.txt", brutDicoPath);
+        ZipFile::ExtractFile(zipPath, baseFileName, brutDicoPath);
         sortDico(brutDicoPath, dicoPath);
         // remove temporary files
         std::remove(brutDicoPath.c_str());
+        std::remove(LOWER_CASE_PATH);
         std::remove(zipPath.c_str());
         // retest the opening
         file.open(dicoPath);

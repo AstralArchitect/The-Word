@@ -4,7 +4,7 @@
 #include <ctime>
 #include <cstring>
 
-std::string checkWord(std::string const& trial, std::string const&  word);
+std::string checkWord(std::string const& trial, std::string word);
 
 int main(int argc, char *argv[])
 {
@@ -64,15 +64,28 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-std::string checkWord(std::string const& trial, std::string const& word) {
+std::string checkWord(std::string const& trial, std::string word)
+{
     std::string result(5, '-');
 
-    for (unsigned long i = 0; i < std::min(trial.size(), word.size()); i++) {
-        if (trial[i] == word[i])
-            result[i] = word[i];
-        else if (std::find(word.begin(), word.end(), trial[i]) != word.end())
+    for (size_t i = 0; i < trial.size(); i++)
+    {
+        size_t pos = word.find(trial[i]);
+        if (pos == i)
+        {
+            result[i] = trial[i];
+            word[pos] = '0';
+        }
+        else if (pos != std::string::npos)
+        {
             result[i] = '*';
-    }
+            word[pos] = '0';
+        }
+        else
+        {
+            result[i] = '-';
+        }
 
+    }
     return result;
 }
